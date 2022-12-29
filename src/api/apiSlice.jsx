@@ -5,11 +5,14 @@ const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000",
   }),
-  tagTypes: ["Posts"],
+  tagTypes: ["Posts", "Post"],
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => "/posts",
       providesTags: ["Posts"],
+    }),
+    getSinglePost: builder.query({
+      query: (id) => `/posts/${id}`,
     }),
     addPost: builder.mutation({
       query: (post) => ({
@@ -41,8 +44,9 @@ const apiSlice = createApi({
 export const {
   useGetPostsQuery,
   useAddPostMutation,
-  useUpdatePosstMutation,
+  useUpdatePostMutation,
   useDeletePostMutation,
+  useGetSinglePostQuery,
 } = apiSlice;
 
 export default apiSlice;

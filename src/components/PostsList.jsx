@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDeletePostMutation, useGetPostsQuery } from "../api/apiSlice";
 
 const PostsList = () => {
+  const navigate = useNavigate();
   const {
     data: posts,
     isLoading,
@@ -11,7 +13,7 @@ const PostsList = () => {
   } = useGetPostsQuery();
   const [deletePost] = useDeletePostMutation();
 
-  //   RENDER CONTENT
+  // PREPARE RENDER CONTENT
   let content;
   if (isSuccess) {
     content = posts.map((post) => (
@@ -25,7 +27,7 @@ const PostsList = () => {
         }}
         key={post.id}
       >
-        <div>{post.title}</div>
+        <div onClick={() => navigate(`/edit/${post.id}`)}>{post.title}</div>
         <span
           style={{ color: "red", fontWeight: "bold" }}
           onClick={() => {
