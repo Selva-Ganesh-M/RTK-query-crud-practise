@@ -9,7 +9,30 @@ const PostsList = () => {
     isSuccess,
     error,
   } = useGetPostsQuery();
-  return JSON.stringify(posts);
+
+  //   RENDER CONTENT
+  let content;
+  if (isSuccess) {
+    content = posts.map((post) => (
+      <article
+        style={{
+          margin: "1em",
+          padding: "1em",
+          border: "2px solid black",
+        }}
+        key={post.id}
+      >
+        {post.title}
+      </article>
+    ));
+  } else if (isLoading) {
+    content = "loading";
+  } else if (isError) {
+    content = error;
+  }
+
+  //   ACTUAL RENDERING
+  return content;
 };
 
 export default PostsList;
