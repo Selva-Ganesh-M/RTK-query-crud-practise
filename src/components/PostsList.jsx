@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetPostsQuery } from "../api/apiSlice";
+import { useDeletePostMutation, useGetPostsQuery } from "../api/apiSlice";
 
 const PostsList = () => {
   const {
@@ -9,6 +9,7 @@ const PostsList = () => {
     isSuccess,
     error,
   } = useGetPostsQuery();
+  const [deletePost] = useDeletePostMutation();
 
   //   RENDER CONTENT
   let content;
@@ -19,10 +20,21 @@ const PostsList = () => {
           margin: "1em",
           padding: "1em",
           border: "2px solid black",
+          display: "flex",
+          justifyContent: "space-between",
         }}
         key={post.id}
       >
-        {post.title}
+        <div>{post.title}</div>
+        <span
+          style={{ color: "red", fontWeight: "bold" }}
+          onClick={() => {
+            console.log("clicked");
+            deletePost(post.id);
+          }}
+        >
+          Delete
+        </span>
       </article>
     ));
   } else if (isLoading) {

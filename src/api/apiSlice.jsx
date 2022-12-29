@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com",
+    baseUrl: "http://localhost:4000",
   }),
   tagTypes: ["Posts"],
   endpoints: (builder) => ({
@@ -31,6 +31,7 @@ const apiSlice = createApi({
       query: (id) => ({
         url: `/posts/${id}`,
         method: "DELETE",
+        body: id,
       }),
       invalidatesTags: ["Posts"],
     }),
